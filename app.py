@@ -19,13 +19,15 @@ class App():
             viewer.print_usage(self.commands)
         elif self.arguments[0] == "-l" and len(self.arguments) == 1:
             viewer.print_tasks(todo_list.task_list)
-        elif self.arguments[0] == "-a":
+        elif self.arguments[0] == "-a" and len(self.arguments) == 2:
             todo_list.add_task(self.arguments[1])
-        elif self.arguments[0] == "-r":
+        elif self.arguments[0] == "-r" and self.arguments[1].isdigit() and len(self.arguments) == 2:
             todo_list.remove_task(self.arguments[1])
-        elif self.arguments[0] == "-c" and self.arguments[1].isdigit():
+        elif self.arguments[0] == "-c" and self.arguments[1].isdigit() and len(self.arguments) == 2:
             todo_list.complete_task(self.arguments[1])
-
+        else:
+            print("\n***Unsupported argument***\n")
+            viewer.print_usage(self.commands)
 
 def main():
     app = App()
