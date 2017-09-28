@@ -11,9 +11,8 @@ class App():
             {"arg": "-c", "desc": "Completes a task"}
         ]
         self.arguments = sys.argv[1:]
-        self.constructor()
 
-    def constructor(self):
+    def run(self):
         viewer = Viewer()
         todo_list = TodoList()
         if not self.arguments:
@@ -22,9 +21,12 @@ class App():
             viewer.print_tasks(todo_list.task_list)
         elif self.arguments[0] == "-c" and self.arguments[1].isdigit():
             todo_list.complete_task(self.arguments[1])
+        elif self.arguments[0] == "-a":
+            todo_list.add_task(self.arguments[1])
 
 
 def main():
     app = App()
+    app.run()
    
 main()
