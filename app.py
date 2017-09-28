@@ -1,4 +1,4 @@
-from sys import argv
+import sys
 
 class App():
     def __init__(self):
@@ -18,3 +18,11 @@ class App():
               self.commands[1]["arg"] + "   " + self.commands[1]["desc"] + "\n" +
               self.commands[2]["arg"] + "   " + self.commands[3]["desc"] + "\n" +
               self.commands[4]["arg"] + "   " + self.commands[4]["desc"] + "\n")
+
+def main():
+    app = App()
+    args = sys.argv[1:]
+    if not args:
+        app.print_usage()
+
+main()
