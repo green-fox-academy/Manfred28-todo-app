@@ -8,5 +8,6 @@ class TodoList(object):
     def read_tasks_from_file(self):
         with open("todo_data", "r") as tasks:
             for task in tasks:
-                self.task_list.append(TodoTask(bool(task[0]), task[1:]))
+                complete = True if task[0] == "1" else False
+                self.task_list.append(TodoTask(complete, description=task[1:]))
     
