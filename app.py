@@ -1,5 +1,6 @@
 import sys
 from viewer import Viewer
+from todo_task_list import TodoList
 
 class App():
     def __init__(self):
@@ -14,8 +15,11 @@ class App():
 def main():
     app = App()
     viewer = Viewer()
+    todo_list = TodoList()
     args = sys.argv[1:]
     if not args:
         viewer.print_usage(app.commands)
+    elif args[0] == "-l" and len(args) == 1:
+        viewer.print_tasks(todo_list.task_list)
 
 main()
