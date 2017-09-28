@@ -12,6 +12,12 @@ class TodoList(object):
                     complete = True if task[0] == "1" else False
                     self.task_list.append(TodoTask(complete, description=task[1:]))
 
+    def filter_tasks(self, args):
+        if "a" in args[0][2:]:
+            return self.task_list
+        else:
+            return [task for task in self.task_list if not task.complete]
+
     def add_task(self, args):
         if len(args) < 2:
             return args[0]

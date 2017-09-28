@@ -31,11 +31,11 @@ class App():
     def parse_arguments(self):
         return {
             "-h": lambda: self.viewer.print_usage(self.commands),
-            "-l": lambda: self.viewer.print_tasks(self.todo_list.task_list),
+            "-l": lambda: self.viewer.print_tasks(self.todo_list.filter_tasks(self.arguments)),
             "-a": lambda: self.todo_list.add_task(self.arguments),
             "-r": lambda: self.todo_list.remove_task(self.arguments),
             "-c": lambda: self.todo_list.complete_task(self.arguments)
-        }[self.arguments[0]]
+        }[self.arguments[0][0:2]]
 
     def lookup_command(self, command):
             for item in self.commands:
