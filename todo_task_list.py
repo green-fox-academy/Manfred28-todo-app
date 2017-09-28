@@ -16,8 +16,12 @@ class TodoList(object):
         self.task_list.append(TodoTask(False, " " + description))
         self.update_file()
 
+    def remove_task(self, index):
+        del self.task_list[int(index) - 1]
+        self.update_file()
+
     def complete_task(self, index):
-        self.task_list[int(index)-1].complete = not self.task_list[int(index)-1].complete
+        self.task_list[int(index)-1].complete = not self.task_list[int(index) - 1].complete
         self.update_file()
 
     def update_file(self):
