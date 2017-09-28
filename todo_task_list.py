@@ -12,16 +12,17 @@ class TodoList(object):
                     complete = True if task[0] == "1" else False
                     self.task_list.append(TodoTask(complete, description=task[1:]))
     
-    def add_task(self, description):
-        self.task_list.append(TodoTask(False, " " + description))
+    def add_task(self, args):
+        description= " " + "".join(args[1:])
+        self.task_list.append(TodoTask(False, description))
         self.update_file()
 
-    def remove_task(self, index):
-        del self.task_list[int(index) - 1]
+    def remove_task(self, args):
+        del self.task_list[int(args[1]) - 1]
         self.update_file()
 
-    def complete_task(self, index):
-        self.task_list[int(index)-1].complete = not self.task_list[int(index) - 1].complete
+    def complete_task(self, args):
+        self.task_list[int(args[1])-1].complete = not self.task_list[int(args[1]) - 1].complete
         self.update_file()
 
     def update_file(self):

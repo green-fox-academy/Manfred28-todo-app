@@ -11,23 +11,26 @@ class App():
             {"arg": "-c", "desc": "Completes a task"}
         ]
         self.arguments = sys.argv[1:]
+        self.viewer = Viewer()
+        self.todo_list = TodoList()
 
     def run(self):
-        viewer = Viewer()
-        todo_list = TodoList()
         if not self.arguments:
-            viewer.print_usage(self.commands)
-        elif self.arguments[0] == "-l" and len(self.arguments) == 1:
-            viewer.print_tasks(todo_list.task_list)
-        elif self.arguments[0] == "-a" and len(self.arguments) == 2:
-            todo_list.add_task(self.arguments[1])
-        elif self.arguments[0] == "-r" and self.arguments[1].isdigit() and len(self.arguments) == 2:
-            todo_list.remove_task(self.arguments[1])
-        elif self.arguments[0] == "-c" and self.arguments[1].isdigit() and len(self.arguments) == 2:
-            todo_list.complete_task(self.arguments[1])
+            self.viewer.print_usage(self.commands)
         else:
-            print("\n***Unsupported argument***\n")
-            viewer.print_usage(self.commands)
+            try:
+                self.parse_arguments()()
+            except KeyError:
+                print("\n***Unsupported argument***\n")
+                self.viewer.print_usage(self.commands)
+
+    def parse_arguments(self):
+        return {
+            "-l": lambda: self.viewer.print_tasks(self.todo_list.task_list),
+            "-a": lambda: self.todo_list.add_task(self.arguments),
+            "-r": lambda: self.todo_list.remove_task(self.arguments),
+            "-c": lambda: self.todo_list.complete_task(self.arguments)
+        }[self.arguments[0]]
 
 def main():
     app = App()
