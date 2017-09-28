@@ -8,8 +8,7 @@ class Viewer(object):
 
     def print_tasks(self, tasks):
         if tasks:
-            for task in tasks:
-                print(task)
+            for i, task in enumerate(tasks):
+                print(str(i) + " - " + str(task))
         else:
             print("No todos for today! :)")
-            

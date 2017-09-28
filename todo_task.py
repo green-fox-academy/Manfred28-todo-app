@@ -4,4 +4,4 @@ class TodoTask(object):
         self.description = description
 
     def __str__(self):
-        return ("[x] " if self.complete else "[] ") + self.description
+        return ("[x]" if self.complete else "[]") + self.description
