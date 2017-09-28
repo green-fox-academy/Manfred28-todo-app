@@ -20,6 +20,8 @@ class App():
             viewer.print_usage(self.commands)
         elif self.arguments[0] == "-l" and len(self.arguments) == 1:
             viewer.print_tasks(todo_list.task_list)
+        elif self.arguments[0] == "-c" and self.arguments[1].isdigit():
+            todo_list.complete_task(self.arguments[1])
 
 
 def main():
