@@ -5,19 +5,18 @@ class App():
         self.commands = [
             {"arg": "-l", "desc": "Lists all the tasks"},
             {"arg": "-a", "desc": "Adds a new task"},
-            {"arg": "-r", "desc": "Removes an task"},
-            {"arg": "-c", "desc": "Completes an task"}
+            {"arg": "-r", "desc": "Removes a task"},
+            {"arg": "-c", "desc": "Completes a task"}
         ]
 
     def print_usage(self):
         print("Command Line Todo application\n" +
-              "=============================" +
-              "\n" +
-              "Command line arguments:" +
+              "=============================\n\n" +
+              "Command line arguments:\n" +
               self.commands[0]["arg"] + "   " + self.commands[0]["desc"] + "\n" +
               self.commands[1]["arg"] + "   " + self.commands[1]["desc"] + "\n" +
-              self.commands[2]["arg"] + "   " + self.commands[3]["desc"] + "\n" +
-              self.commands[4]["arg"] + "   " + self.commands[4]["desc"] + "\n")
+              self.commands[2]["arg"] + "   " + self.commands[2]["desc"] + "\n" +
+              self.commands[3]["arg"] + "   " + self.commands[3]["desc"] + "\n")
 
 def main():
     app = App()
