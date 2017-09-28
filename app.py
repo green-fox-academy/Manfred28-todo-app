@@ -5,10 +5,10 @@ from todo_task_list import TodoList
 class App():
     def __init__(self):
         self.commands = [
-            {"arg": "-l", "desc": "Lists all the tasks"},
-            {"arg": "-a", "desc": "Adds a new task"},
-            {"arg": "-r", "desc": "Removes a task"},
-            {"arg": "-c", "desc": "Completes a task"}
+            {"arg": "-l", "desc": "Lists all the tasks", "usage": "usage: app.py -l"},
+            {"arg": "-a", "desc": "Adds a new task", "usage": "usage: app.py -a task"},
+            {"arg": "-r", "desc": "Removes a task", "usage": "usage: app.py -r [number]"},
+            {"arg": "-c", "desc": "Completes a task", "usage": "usage: app.py -c [number]"}
         ]
         self.arguments = sys.argv[1:]
         self.viewer = Viewer()
@@ -19,7 +19,10 @@ class App():
             self.viewer.print_usage(self.commands)
         else:
             try:
-                self.parse_arguments()()
+                if self.parse_arguments()() != None:
+                    command_index = self.lookup_command(self.arguments[0])
+                    print("\n***Unsupported argument***\n")
+                    print(self.commands[command_index]["usage"])
             except KeyError:
                 print("\n***Unsupported argument***\n")
                 self.viewer.print_usage(self.commands)
@@ -31,6 +34,12 @@ class App():
             "-r": lambda: self.todo_list.remove_task(self.arguments),
             "-c": lambda: self.todo_list.complete_task(self.arguments)
         }[self.arguments[0]]
+
+    def lookup_command(self, command):
+            for item in self.commands:
+                if item["arg"] == command:
+                    return self.commands.index(item)
+
 
 def main():
     app = App()
