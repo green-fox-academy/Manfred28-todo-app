@@ -5,6 +5,7 @@ from todo_task_list import TodoList
 class App():
     def __init__(self):
         self.commands = [
+            {"arg": "-h", "desc": "Lists the available commands", "usage": "usage: app.py -h"},
             {"arg": "-l", "desc": "Lists all the tasks", "usage": "usage: app.py -l"},
             {"arg": "-a", "desc": "Adds a new task", "usage": "usage: app.py -a task"},
             {"arg": "-r", "desc": "Removes a task", "usage": "usage: app.py -r [number]"},
@@ -29,6 +30,7 @@ class App():
 
     def parse_arguments(self):
         return {
+            "-h": lambda: self.viewer.print_usage(self.commands),
             "-l": lambda: self.viewer.print_tasks(self.todo_list.task_list),
             "-a": lambda: self.todo_list.add_task(self.arguments),
             "-r": lambda: self.todo_list.remove_task(self.arguments),
