@@ -12,13 +12,10 @@ class TodoList(object):
             for task in tasks.read().split("\n"):
                 if task:
                     task = task.split("||")
-                    if len(task) == 2:
-                        self.task_list.append(TodoTask(complete=bool((int(task[0]))), description=task[1]))
+                    if task[0] == "regular":
+                        self.task_list.append(TodoTask(*task[1:]))
                     else:
-                        self.task_list.append(TimedTodoTask(complete=bool(int(task[0])), 
-                                                            description=task[1],
-                                                            deadline=task[2]
-                                                            ))
+                        self.task_list.append(TimedTodoTask(*task[1:]))
 
     def filter_tasks(self, args):
         if "a" in args[0][2:]:
@@ -31,10 +28,10 @@ class TodoList(object):
             return args[0]
         if "d" in args[0][2:]:
             description = " " + " ".join(args[2:])
-            self.task_list.append(TimedTodoTask(False, description, deadline=args[1]))
+            self.task_list.append(TimedTodoTask("False", description, deadline=args[1]))
         else:
             description = " " + " ".join(args[1:])
-            self.task_list.append(TodoTask(False, description))
+            self.task_list.append(TodoTask("False", description))
         self.update_file()
 
 
