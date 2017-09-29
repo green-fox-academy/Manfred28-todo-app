@@ -36,13 +36,13 @@ class TodoList(object):
 
 
     def remove_task(self, args):
-        if len(args) != 2 or not args[1].isdigit():
+        if len(args) != 2 or not args[1].isdigit() or int(args[1]) > len(self.task_list):
             return args[0]
         del self.task_list[int(args[1]) - 1]
         self.update_file()
 
     def complete_task(self, args):
-        if len(args) != 2 or not args[1].isdigit():
+        if len(args) != 2 or not args[1].isdigit() or int(args[1]) > len(self.task_list):
             return args[0]
         self.task_list[int(args[1])-1].complete = not self.task_list[int(args[1]) - 1].complete
         self.update_file()
