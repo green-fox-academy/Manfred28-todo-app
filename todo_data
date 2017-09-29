@@ -8,3 +8,6 @@ regular||False|| 5
 regular||False|| 5
 regular||False|| 5
 regular||False|| 5
+timed||False|| asd||2012.2.2
+timed||True|| asd||2012.10.10
+timed||False|| asd||2017.10.10

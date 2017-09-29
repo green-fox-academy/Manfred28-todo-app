@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from todo_task import TodoTask, TimedTodoTask
 
 class TodoList(object):
@@ -33,7 +31,6 @@ class TodoList(object):
             description = " " + " ".join(args[1:])
             self.task_list.append(TodoTask("False", description))
         self.update_file()
-
 
     def remove_task(self, args):
         if len(args) != 2 or not args[1].isdigit() or int(args[1]) > len(self.task_list):

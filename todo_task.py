@@ -24,10 +24,14 @@ class TimedTodoTask(TodoTask):
         self.description = description
         self.deadline = deadline
 
-    def time_left_for_task(self):
-        return str((parser.parse(self.deadline) - datetime.today()).days)
+    def check_deadline(self):
+        days_until_deadline = str((parser.parse(self.deadline) - datetime.today()).days)
+        if int(days_until_deadline) > 0:
+            return "Deadline in: " + days_until_deadline + " days"
+        else:
+            return "Deadline over"
+
 
     def __str__(self):
         return (("[x]" if self.complete else "[ ]") + 
-                self.description + " - Deadline in: " + 
-                self.time_left_for_task() + " days")
+                self.description + " - " + self.check_deadline())
