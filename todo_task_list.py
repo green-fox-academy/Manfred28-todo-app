@@ -1,4 +1,6 @@
-from todo_task import TodoTask
+from datetime import datetime, timedelta
+
+from todo_task import TodoTask, TimedTodoTask
 
 class TodoList(object):
     def __init__(self):
@@ -9,8 +11,14 @@ class TodoList(object):
         with open("todo_data", "r") as tasks:
             for task in tasks.read().split("\n"):
                 if task:
-                    complete = True if task[0] == "1" else False
-                    self.task_list.append(TodoTask(complete, description=task[1:]))
+                    task = task.split("||")
+                    if len(task) == 2:
+                        self.task_list.append(TodoTask(complete=bool((int(task[0]))), description=task[1]))
+                    else:
+                        self.task_list.append(TimedTodoTask(complete=bool(int(task[0])), 
+                                                            description=task[1],
+                                                            deadline=task[2]
+                                                            ))
 
     def filter_tasks(self, args):
         if "a" in args[0][2:]:
@@ -21,9 +29,14 @@ class TodoList(object):
     def add_task(self, args):
         if len(args) < 2:
             return args[0]
-        description= " " + "".join(args[1:])
-        self.task_list.append(TodoTask(False, description))
+        if "d" in args[0][2:]:
+            description = " " + " ".join(args[2:])
+            self.task_list.append(TimedTodoTask(False, description, deadline=args[1]))
+        else:
+            description = " " + " ".join(args[1:])
+            self.task_list.append(TodoTask(False, description))
         self.update_file()
+
 
     def remove_task(self, args):
         if len(args) != 2 or not args[1].isdigit():
@@ -36,9 +49,8 @@ class TodoList(object):
             return args[0]
         self.task_list[int(args[1])-1].complete = not self.task_list[int(args[1]) - 1].complete
         self.update_file()
-    
+
     def update_file(self):
         with open("todo_data", "w") as todo_data:
             for task in self.task_list:
-                complete = "1" if task.complete else "0"
-                todo_data.write(complete + task.description + "\n")
+                todo_data.write(repr(task) + "\n")
